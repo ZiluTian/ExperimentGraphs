@@ -48,8 +48,8 @@ object writeGridGiraph extends GiraphFormat {
       val width: Int = args(0).toInt
       val height: Int = args(1).toInt
 
-      val pw = new PrintWriter(new FileOutputStream(new File(f"2DTorus_${width*height}_giraph.txt"),false))
+      val saveName = f"2DTorus_${width*height}_giraph.txt"
       val graph: Map[Long, Iterable[Long]] = Torus2DGraph(width, height)
-      pw.close()
+      write(graph, saveName, schema)
    }  
 }
