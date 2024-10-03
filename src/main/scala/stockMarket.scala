@@ -1,8 +1,5 @@
 package ExperimentGraphs
 
-import cloudcity.lib.Graph._
-import cloudcity.lib.Graph.GenerateGraph._
-
 object writeStockMarketGraphx extends GraphxFormat {
     def main(args: Array[String]): Unit = {
         val markets: Int = args(0).toInt
@@ -11,7 +8,7 @@ object writeStockMarketGraphx extends GraphxFormat {
         var graph: Map[Long, Iterable[Long]] = Map[Long, Iterable[Long]]()
         Range(0, markets).map(i => {
             val marketOffset = (i * tradersPerMarket + i)
-            graph ++= BipartiteGraph(1, tradersPerMarket, marketOffset)
+            graph ++= GraphFactory.bipartite(1, tradersPerMarket, marketOffset).adjacencyList()
         })
         write(graph, saveName, schema)
     }
@@ -29,7 +26,7 @@ object writeStockMarketGiraph extends GiraphFormat {
         var graph: Map[Long, Iterable[Long]] = Map[Long, Iterable[Long]]()
         Range(0, markets).map(i => {
             val marketOffset = (i * tradersPerMarket + i)
-            graph ++= BipartiteGraph(1, tradersPerMarket, marketOffset)
+            graph ++=  GraphFactory.bipartite(1, tradersPerMarket, marketOffset).adjacencyList()
         })
         write(graph, saveName, schema)
 
